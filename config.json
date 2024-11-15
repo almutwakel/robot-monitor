@@ -1,0 +1,46 @@
+{
+    "paths": {
+        "models": {
+            "base_dir": "/home/akhassan/manipulation_uncertainty/models/",
+            "checkpoints": "/home/akhassan/manipulation_uncertainty/models/checkpoints/",
+            "pretrained": "/home/akhassan/manipulation_uncertainty/models/pretrained/"
+        },
+        "data": {
+            "base_dir": "/scratch/akhassan/datasets/bc-z-robot/",
+            "successes": ["/scratch/akhassan/datasets/bc-z-robot/bcz-21task_v9.0.1.tfrecord/bcz-21task_v9.0.1.tfrecord", "/scratch/akhassan/datasets/bc-z-robot/bcz-79task_v16.0.0.tfrecord/bcz-79task_v16.0.0.tfrecord"],
+            "failures": ["/scratch/akhassan/datasets/bc-z-robot/bcz-21task_v9.0.1_failures.tfrecord/bcz-21task_v9.0.1_failures.tfrecord", "/scratch/akhassan/datasets/bc-z-robot/bcz-79task_v16.0.0_failures.tfrecord/bcz-79task_v16.0.0_failures.tfrecord"]
+        },
+        "logs": {
+            "base_dir": "/home/akhassan/manipulation_uncertainty/logs/",
+            "training": "/home/akhassan/manipulation_uncertainty/logs/training/",
+            "evaluation": "/home/akhassan/manipulation_uncertainty/logs/evaluation/"
+        }
+    },
+    "api_keys": {
+        "openai_key_path": "/home/akhassan/.openai_key"
+    },
+    "experiment": {
+        "seed": 2024,
+        "batch_size": 1,
+        "num_workers": 4
+    },
+    "model_configs": {
+        "video_language": {
+            "max_video_length": 32,
+            "frame_sample_rate": 4
+        },
+        "vision_language": {
+            "image_size": [224, 224]
+        }
+    },
+    "uncertainty_estimation": {
+        "temperature_scaling": true,
+        "ensemble_predictions": false,
+        "confidence_threshold": 0.7,
+        "save_attention_maps": true
+    },
+    "data_loader": {
+        "success_ratio": 0.5,
+        "num_samples": 4
+    }
+}
