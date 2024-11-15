@@ -1,2 +1,7 @@
 logs
 models
+__pycache__
+.env
+notes
+.DS_Store
+.ipynb_checkpoints
