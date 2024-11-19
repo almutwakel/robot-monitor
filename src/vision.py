@@ -88,7 +88,7 @@ class OpenAIVisionModel(VisionLanguageModel):
             base64_image = self._encode_image(image)
             
             # Construct prompt
-            prompt = f"""Given the task "{task_description}", analyze the image and determine if the task was completed successfully.
+            prompt = f"""Given the task "{task_description}", analyze the image and determine if the task was completed successfully by the robot arm equipped with a gripper.
                         Respond with success boolean (true or false) and your confidence in this assessment based on whether you have enough information to determine success and your ability to reason about the task (very low, low, medium, high, very high).
                         Add an explanation for your assessment. Use the following schema: {{"success": boolean, "confidence": "very low" | "low" | "medium" | "high" | "very high", "explanation": string}}"""
             

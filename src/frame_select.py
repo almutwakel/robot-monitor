@@ -16,7 +16,7 @@ class FrameSelector(ABC):
     
     def __init__(self, config: Dict[str, Any]):
         self.config = config
-        self.num_frames = config.get('num_frames', 2)
+        self.num_frames = config['frame_sampling'].get('num_frames', 2)
     
     @abstractmethod
     def select_frames(self, frames: List[torch.Tensor], task_description: str = None) -> torch.Tensor:
@@ -64,7 +64,7 @@ class MaxDifferenceSelector(FrameSelector):
     
     def __init__(self, config: Dict[str, Any]):
         super().__init__(config)
-        self.metric = config.get('metric', 'mse')
+        self.metric = config['frame_sampling'].get('max_difference_metric', 'mse')
         
     def compute_difference(self, frame1: torch.Tensor, frame2: torch.Tensor) -> float:
         """Compute difference between two frames using specified metric"""
@@ -120,7 +120,7 @@ class VLMGuidedSelector(FrameSelector):
     
     def __init__(self, config: Dict[str, Any]):
         super().__init__(config)
-        self.model_name = config.get('model', 'mini-clip')
+        self.model_name = config['frame_sampling'].get('model', 'mini-clip')
         logger.warning("VLMGuidedSelector is a placeholder and not yet implemented")
     
     def select_frames(self, frames: List[torch.Tensor], task_description: str = None) -> torch.Tensor:

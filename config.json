@@ -14,15 +14,11 @@
             "base_dir": "/home/akhassan/manipulation_uncertainty/logs/",
             "training": "/home/akhassan/manipulation_uncertainty/logs/training/",
             "evaluation": "/home/akhassan/manipulation_uncertainty/logs/evaluation/"
-        }
+        },
+        "results": "results"
     },
     "api_keys": {
         "openai_key_path": "/home/akhassan/.openai_key"
-    },
-    "experiment": {
-        "seed": 2024,
-        "batch_size": 1,
-        "num_workers": 4
     },
     "model_configs": {
         "model_type": "openai",
@@ -42,10 +38,13 @@
     },
     "data_loader": {
         "success_ratio": 0.5,
-        "num_samples": 4
+        "num_samples": 16,
+        "batch_size": 1,
+        "num_workers": 4
     },
     "frame_sampling": {
         "type": "endpoint-interpolation",
-        "num_frames": 2
+        "num_frames": 2,
+        "max_difference_metric": "mse"
     }
 }

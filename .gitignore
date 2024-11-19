@@ -1,5 +1,7 @@
 logs
 models
+results
+debug_output
 __pycache__
 .env
 notes

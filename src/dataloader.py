@@ -255,14 +255,15 @@ def collate_fn(batch):
         'num_frames': torch.tensor([item['num_frames'] for item in batch])
     }
 
-def get_dataloader(debug=False):
+def get_dataloader(config=None, debug=False):
     """
     Returns the pytorch dataloader for the dataset.
     Args:
         debug: If True, enables verbose logging and saves debug information
     """
     try:
-        config = load_config()
+        if config is None:
+            config = load_config()
         
         successes_paths = [Path(path) for path in config['paths']['data']['successes']]
         failures_paths = [Path(path) for path in config['paths']['data']['failures']]
@@ -283,8 +284,8 @@ def get_dataloader(debug=False):
         logger.info("Creating dataloader...")
         dataloader = DataLoader(
             dataset, 
-            batch_size=config['experiment']['batch_size'],
-            num_workers=config['experiment']['num_workers'],
+            batch_size=config['data_loader'].get('batch_size', 1),
+            num_workers=config['data_loader'].get('num_workers', 4),
             shuffle=True,
             collate_fn=collate_fn  # Add custom collate function
         )
