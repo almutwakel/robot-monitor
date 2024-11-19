@@ -1,0 +1,3 @@
+Subtask: knock the eraser over
+Number of frames: 32
+Embedding shape: (512,)

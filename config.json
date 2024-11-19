@@ -25,6 +25,7 @@
         "num_workers": 4
     },
     "model_configs": {
+        "model_type": "openai",
         "video_language": {
             "max_video_length": 32,
             "frame_sample_rate": 4
@@ -42,5 +43,9 @@
     "data_loader": {
         "success_ratio": 0.5,
         "num_samples": 4
+    },
+    "frame_sampling": {
+        "type": "endpoint-interpolation",
+        "num_frames": 2
     }
 }

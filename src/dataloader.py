@@ -10,11 +10,12 @@ import itertools
 from collections import defaultdict
 import logging
 from tqdm import tqdm
+from typing import Dict, Any
+from datetime import datetime
+from src.utils.logging_utils import setup_logger, log_dict
 
-# Set up logging
-logging.basicConfig(level=logging.INFO, 
-                   format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+# Create single logger instance for the module
+logger = setup_logger()
 
 class ManipulationDataset(Dataset):
     def __init__(self, successes_paths, failures_paths, success_ratio=0.5, num_samples=None, debug=False):
@@ -181,8 +182,8 @@ class ManipulationDataset(Dataset):
             debug_dir.mkdir(exist_ok=True)
             
             # Save first frame
-            first_frame = trajectory['frames'][0]['present/image/encoded'].numpy()
-            plt.imsave(debug_dir / f"episode_{episode_id}_frame_0.png", first_frame)
+            # first_frame = trajectory['frames'][0]['present/image/encoded'].numpy()
+            # plt.imsave(debug_dir / f"episode_{episode_id}_frame_0.png", first_frame)
             
             # Save trajectory info
             with open(debug_dir / f"episode_{episode_id}_info.txt", 'w') as f:
@@ -219,6 +220,16 @@ class ManipulationDataset(Dataset):
             # Convert each frame to a tensor, but keep as list
             frames = [torch.from_numpy(frame['present/image/encoded']).permute(2, 0, 1) for frame in trajectory['frames']]  # List of [C, H, W] tensors
             label = torch.tensor(self.labels[idx])
+            
+            # Log item access
+            log_dict(logger, {
+                "timestamp": datetime.now().isoformat(),
+                "index": idx,
+                "trajectory_id": idx,
+                "subtask": trajectory['subtask_name'],
+                "num_frames": len(frames),
+                "success": bool(label)
+            }, prefix="Dataset Access: ")
             
             return {
                 'frames': frames,  # List of frame tensors
